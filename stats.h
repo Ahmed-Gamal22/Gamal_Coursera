@@ -9,13 +9,11 @@
  *
  *****************************************************************************/
 /**
- * @file <Add File Name> 
- * @brief <Add Brief Description Here >
- *
- * <Add Extended Description Here>
- *
- * @author <Add FirsName LastName>
- * @date <Add date >
+ * @file stats.h 
+ * @brief header file of stats module 
+ *		  Reponsible for statsical analysis on an Array input.
+ * @author Ahmed Gamal
+ * @date 28-05-2020
  *
  */
 #ifndef __STATS_H__
@@ -24,17 +22,92 @@
 /* Add Your Declarations and Function Comments here */ 
 
 /**
- * @brief <Add Brief Description of Function Here>
+ * @brief print statistical elements on console
  *
- * <Add Extended Description Here>
+ *	This function take four inputs and print theri values
+ *	on the console application.
  *
- * @param <Add InputName> <add description here>
- * @param <Add InputName> <add description here>
- * @param <Add InputName> <add description here>
- * @param <Add InputName> <add description here>
+ * @param unsigned integer 8 bit minimum
+ * @param unsigned integer 8 bit maximum
+ * @param unsigned integer 8 bit mean
+ * @param unsigned integer 8 bit median
  *
- * @return <Add Return Informaiton here>
+ * @return void
  */
+void print_statistics(unsigned char minimum, unsigned char maximum, unsigned char mean, unsigned char median);
 
+/**
+ * @brief print array elements on console
+ *
+ *	Given an array of data and a length, prints the array to the console screen.
+ *
+ * @param pointer to unsigned integer 8 bit value(first element of array)
+ * @param unsigned integer 8 bit length of array
+ *
+ * @return void
+ */
+void print_array(unsigned char *data, unsigned char length);
+
+/**
+ * @brief calculate array median value
+ *
+ *	Given an array of data and a length, calculate array median value and return it back.
+ *
+ * @param pointer to unsigned integer 8 bit value(first element of array)
+ * @param unsigned integer 8 bit length of array
+ *
+ * @return unsigned integer 8 bit median value of array
+ */
+unsigned char find_median(unsigned char *data, unsigned char length);
+
+/**
+ * @brief calculate array mean value
+ *
+ *	Given an array of data and a length, calculate array mean value and return it back.
+ *
+ * @param pointer to unsigned integer 8 bit value(first element of array)
+ * @param unsigned integer 8 bit length of array
+ *
+ * @return unsigned integer 8 bit mean value of array
+ */
+unsigned char find_mean(unsigned char *data, unsigned char length);
+
+/**
+ * @brief calculate array max value
+ *
+ *	Given an array of data and a length, calculate array max value and return it back.
+ *
+ * @param pointer to unsigned integer 8 bit value(first element of array)
+ * @param unsigned integer 8 bit length of array
+ *
+ * @return unsigned integer 8 bit max value of array
+ */ 
+unsigned char find_maximum(unsigned char *data, unsigned char length); 
+
+/**
+ * @brief calculate array min value
+ *
+ *	Given an array of data and a length, calculate array min value and return it back.
+ *
+ * @param pointer to unsigned integer 8 bit value(first element of array)
+ * @param unsigned integer 8 bit length of array
+ *
+ * @return unsigned integer 8 bit min value of array
+ */
+unsigned char find_minimum(unsigned char *data, unsigned char length);
+
+/**
+ * @brief sort array in Descending order
+ *
+ *	Given an array of data and a length,sorts the array from largest to smallest. 
+ *	The zeroth Element should be the largest value, and 
+ *	the last element (n-1) should be the smallest value.
+ *
+ * @param pointer to unsigned integer 8 bit value(first element of array)
+ * @param unsigned integer 8 bit length of array
+ *
+ * @return void
+ */
+void sort_array(unsigned char *data, unsigned char length);
 
 #endif /* __STATS_H__ */
