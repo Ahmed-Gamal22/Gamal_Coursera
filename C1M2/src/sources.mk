@@ -18,8 +18,8 @@ TARGETSOURCES = interrupts_msp432p401r_gcc.c \
 				startup_msp432p401r_gcc.c \
 				system_msp432p401r.c  
 # Add your include paths to this variable
-TARGETINCLUDES = -IE:\ESWorkstation\m2\include\common \
-				 -IE:\ESWorkstation\m2\include\msp432 \
-				 -IE:\ESWorkstation\m2\include\CMSIS
-HOSTINCLUDES = -IE:\ESWorkstation\m2\include\common
+TARGETINCLUDES = -I../include\common \
+				 -I../include\msp432 \
+				 -I../include\CMSIS
+HOSTINCLUDES = -I../include\common
 
