@@ -18,11 +18,11 @@
  */
 
 #include <stdint.h>
-#include "course1.h"
-#include "platform.h"
-#include "memory.h"
-#include "data.h"
-#include "stats.h"
+#include "../include\common\platform.h"
+#include "../include\common\memory.h"
+#include "../include\common\data.h"
+#include "../include\common\stats.h"
+#include "../include\common\course1.h"
 
 int8_t test_data1() {
   uint8_t * ptr;
@@ -335,7 +335,6 @@ void course1(void)
   results[5] = test_memcopy();
   results[6] = test_memset();
   results[7] = test_reverse();
-
   for ( i = 0; i < TESTCOUNT; i++) 
   {
     failed += results[i];

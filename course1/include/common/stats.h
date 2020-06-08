@@ -19,6 +19,8 @@
 #ifndef __STATS_H__
 #define __STATS_H__
 
+#include "platform.h"
+
 /* Add Your Declarations and Function Comments here */ 
 
 /**
@@ -46,8 +48,9 @@ void print_statistics(unsigned char minimum, unsigned char maximum, unsigned cha
  *
  * @return void
  */
+#ifdef VERBOSE 
 void print_array(unsigned char *data, unsigned char length);
-
+#endif
 /**
  * @brief calculate array median value
  *

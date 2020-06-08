@@ -1,54 +1,70 @@
-/******************************************************************************
- * Copyright (C) 2017 by Alex Fosdick - University of Colorado
- *
- * Redistribution, modification or use of this software in source or binary
- * forms is permitted as long as the files maintain this copyright. Users are 
- * permitted to modify this and use it to learn about the field of embedded
- * software. Alex Fosdick and the University of Colorado are not liable for any
- * misuse of this material. 
- *
- *****************************************************************************/
 /**
- * @file main.c
- * @brief Main entry point to the C1M2 Assessment
+ * @file data.c
+ * @brief Data manipulation with strings
  *
- * This file contains the main code for the C1M2 assesment. Students
- * are not to change any of the code, they are instead supposed to compile
- * these files with their makefile.
+ * This implementation file provides implementation functions to 
+ * handle integer to ascii and vice versa.
  *
- * @author Alex Fosdick
- * @date April 1 2017
+ * @author Ahmed Gamal
+ * @date June 8 2020
  *
  */
-#include "platform.h"
-#include "memory.h"
-
-#define MAX_LENGTH (10)
-char buffer[MAX_LENGTH];
-
-/* A pretty boring main file */
-int main(void) {
-  unsigned int i;
-  char value;
-
-  /* Code below does some arbitrary memory Reads & writes */
-  clear_all(buffer, MAX_LENGTH);
-  set_all( ( buffer + 8 ), 43, 2); 
-  set_value(buffer, 0, 0x61);
-  value = get_value(buffer, 9);
-  set_value(buffer, 9, (value + 0x27));
-  set_value(buffer, 3, 0x37);
-  set_value(buffer, 1, 88);
-  set_value(buffer, 4, '2');
-  value = get_value(buffer, 1);
-  set_value(buffer, 2, 121);
-  set_value(buffer, 7, (value - 12));
-  set_value(buffer, 5, 0x5F);
-
-  for ( i = 0; i < MAX_LENGTH; i++ ){
-    PRINTF("%c", buffer[i]);
-  }
-  PRINTF("\n");
-  return 0;
+#include "../include\common\data.h"
+#include <stdio.h>
+#include <stdlib.h>
+uint8_t my_itoa(int32_t data, uint8_t * ptr, uint32_t base)
+{
+	int n = abs(data);
+	int i = 0;
+	while(n)
+	{
+		int r = n%base;
+		if(r >= 10)
+		{
+			*(ptr+i) = 65 + (r - 10);
+			i++;
+		}
+		else
+		{
+			*(ptr+i) = 48 + r;
+			i++;
+		}
+		n/=base;
+	}
+	if(i == 0)
+	{
+		*(ptr+i) = '0';
+		i++;
+	}
+	if(data < 0)
+	{
+		*(ptr+i) = '-';
+		i++;
+	}
+	*(ptr+i) = '\0';	
+	return i;
 }
 
+int32_t my_atoi(uint8_t * ptr, uint8_t digits, uint32_t base)
+{
+	int32_t retVal = 0;
+	int sign = 1;
+	uint8_t i = 0;
+	uint8_t tempVal = 0;
+	for(uint8_t j = 0; j < digits/2; j++)
+	{		
+		tempVal = *(ptr+j);
+		*(ptr+j) = *(ptr+digits-j-1);
+		*(ptr+digits-j-1) = tempVal;
+	}
+	if(*ptr == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	for(; i < digits; i++)
+	{		
+		retVal = retVal * base + (*(ptr+i) - '0');
+	}
+	return retVal*sign;
+}

@@ -24,13 +24,13 @@
 include sources.mk
 
 # Override platform
-PLATFORM = HOST
+PLATFORM = MSP432
 
 # Executable file name
-TARGET = c1m2
+TARGET = App
 
 # ARM linker file
-LINKER_FILE = ../msp432p401r.lds
+LINKER_FILE = msp432p401r.lds
 
 #C standard used
 C_stand = c99
@@ -45,7 +45,7 @@ SPECS = nosys.specs
 ifeq ($(PLATFORM),HOST)
 	CC = gcc
 	LD = ld
-	CFLAGS = -Wall -Werror -MMD -g -std=$(C_stand) 
+	CFLAGS = -Wall -Werror -g -std=$(C_stand) 
 	LDFLAGS = -Wl,-O0
 	size = size
 	CPPFLAGs = $(HOSTINCLUDES)
@@ -53,7 +53,7 @@ ifeq ($(PLATFORM),HOST)
 else
 	CC = arm-none-eabi-gcc
 	LD = arm-none-eabi-ld
-	CFLAGS = -Wall -Werror -g -MMD -std=$(C_stand) -mcpu=$(CPU) -mthumb -march=$(ARCH) \
+	CFLAGS = -Wall -Werror -g -std=$(C_stand) -mcpu=$(CPU) -mthumb -march=$(ARCH) \
 			 --specs=$(SPECS) -mfloat-abi=hard -mfpu=$(FPU)
 	LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE) -O0 
 	CPPFLAGs = $(TARGETINCLUDES)
@@ -61,24 +61,24 @@ else
 	OBJS = $(TARGETSOURCES:.c=.o)
 endif
 
-%.o %.d : %.c
-	$(CC) -c $< -D$(PLATFORM) $(CPPFLAGs) $(CFLAGS) -o $@
+%.o : %.c
+	$(CC) -c $< -D$(PLATFORM) -DVERBOSE -DCOURSE1 $(CPPFLAGs) $(CFLAGS) -o $@
 %.i : %.c
-	$(CC) -E $< -D$(PLATFORM) $(CPPFLAGs) $(CFLAGS) -o $@
+	$(CC) -E $< -D$(PLATFORM) -DVERBOSE -DCOURSE1 $(CPPFLAGs) $(CFLAGS) -o $@
 %.asm : %.c
-	$(CC) -S $< -D$(PLATFORM) $(CPPFLAGs) $(CFLAGS) -o $@
+	$(CC) -S $< -D$(PLATFORM) -DVERBOSE -DCOURSE1 $(CPPFLAGs) $(CFLAGS) -o $@
 
 .PHONY: compile-all
 compile-all: $(TARGET).o
-$(TARGET).o %.d: $(OBJS)
-	$(CC) -c $(OBJS) -D$(PLATFORM) $(CPPFLAGs) $(CFLAGS) $(LDFLAGS) -o $@
+$(TARGET).o: $(OBJS)
+	$(CC) -c $(OBJS) -D$(PLATFORM) -DVERBOSE -DCOURSE1 $(CPPFLAGs) $(CFLAGS) $(LDFLAGS) -o $@
 
 .PHONY: build
 build: $(TARGET).out
 $(TARGET).out: $(OBJS)
-	$(CC) $(OBJS) -D$(PLATFORM) $(CPPFLAGs) $(CFLAGS) $(LDFLAGS) -o $@
+	$(CC) $(OBJS) -D$(PLATFORM) -DVERBOSE -DCOURSE1 $(CPPFLAGs) $(CFLAGS) $(LDFLAGS) -o $@
 	$(size) $(TARGET).out
 	
 .PHONY: clean
 clean:
-	rm -f $(OBJS) $(TARGET).out $(TARGET).map $(TARGET).i $(TARGET).asm $(TARGET).d
+	rm -f $(OBJS) $(TARGET).out $(TARGET).map $(TARGET).i $(TARGET).asm

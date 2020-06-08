@@ -10,16 +10,23 @@
 #*****************************************************************************
 
 # Add your Source files to this variable
-HOSTSOURCES = main.c \
-			  memory.c 
-TARGETSOURCES = interrupts_msp432p401r_gcc.c \
-				main.c \
-				memory.c \
-				startup_msp432p401r_gcc.c \
-				system_msp432p401r.c  
+TARGETSOURCES = ../course1\src\course1.c \
+				../course1\src\data.c \
+				../course1\src\interrupts_msp432p401r_gcc.c \
+				../course1\src\memory.c \
+				../course1\src\startup_msp432p401r_gcc.c \
+				../course1\src\stats.c \
+				../course1\src\system_msp432p401r.c \
+				../course1\src\main.c 
 # Add your include paths to this variable
 TARGETINCLUDES = -I../include\common \
 				 -I../include\msp432 \
 				 -I../include\CMSIS
-HOSTINCLUDES = -I../include\common
-
+# Add your Source files to this variable
+HOSTSOURCES = ../course1\src\course1.c \
+				../course1\src\data.c \
+				../course1\src\memory.c \
+				../course1\src\stats.c \
+				../course1\src\main.c 
+# Add your include paths to this variable
+HOSTINCLUDES = -I../include\common 
